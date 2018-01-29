@@ -39,8 +39,8 @@ class WaveView : View {
         mCanvas = Canvas()
         wavePath = Path()
         mPaint.strokeWidth = 10f
-        mPaint.color = Color.BLACK
-        mPaint.style = Paint.Style.STROKE
+        mPaint.color = Color.BLUE
+        mPaint.style = Paint.Style.FILL
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);
     }
@@ -56,20 +56,21 @@ class WaveView : View {
         endXPoint = (width).toFloat()
         startYPoint = (height / 2).toFloat()
         GAPX = endXPoint / 4
+
         wavePath.reset()
         wavePath.moveTo(startXPoint, startYPoint)
         wavePath.quadTo(startXPoint + GAPX, startYPoint + GAPY, startXPoint + GAPX * 2, startYPoint)
-        canvas?.drawPath(wavePath, mPaint)
-        wavePath.moveTo(startXPoint + GAPX * 2, startYPoint)
+
         wavePath.quadTo(startXPoint + GAPX * 3, startYPoint - GAPY, startXPoint + GAPX * 4, startYPoint)
-        canvas?.drawPath(wavePath, mPaint)
 
-        wavePath.moveTo(startXPoint + GAPX * 4, startYPoint)
         wavePath.quadTo(startXPoint + GAPX * 5, startYPoint + GAPY, startXPoint + GAPX * 6, startYPoint)
-        canvas?.drawPath(wavePath, mPaint)
 
-        wavePath.moveTo(startXPoint + GAPX * 6, startYPoint)
         wavePath.quadTo(startXPoint + GAPX * 7, startYPoint - GAPY, startXPoint + GAPX * 8, startYPoint)
+
+        wavePath.lineTo(width.toFloat(), height.toFloat())
+        wavePath.lineTo(startXPoint, height.toFloat())
+        wavePath.close();
+
         canvas?.drawPath(wavePath, mPaint)
 
         Log.d("TAG", "endX: " + endXPoint)
